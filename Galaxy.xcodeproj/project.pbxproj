@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		4AF960E11B1CE335003D9E44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF960E01B1CE335003D9E44 /* AppDelegate.swift */; };
-		4AF960E31B1CE335003D9E44 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AF960E21B1CE335003D9E44 /* GameScene.sks */; };
-		4AF960E51B1CE335003D9E44 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF960E41B1CE335003D9E44 /* GameScene.swift */; };
+		4AF960E51B1CE335003D9E44 /* GalaxyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF960E41B1CE335003D9E44 /* GalaxyScene.swift */; };
 		4AF960E71B1CE335003D9E44 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF960E61B1CE335003D9E44 /* GameViewController.swift */; };
 		4AF960EA1B1CE335003D9E44 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF960E81B1CE335003D9E44 /* Main.storyboard */; };
 		4AF960EC1B1CE335003D9E44 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF960EB1B1CE335003D9E44 /* Images.xcassets */; };
 		4AF960EF1B1CE335003D9E44 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AF960ED1B1CE335003D9E44 /* LaunchScreen.xib */; };
 		4AF960FB1B1CE335003D9E44 /* GalaxyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF960FA1B1CE335003D9E44 /* GalaxyTests.swift */; };
+		4AF961071B1CED8B003D9E44 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF961061B1CED8B003D9E44 /* Hero.swift */; };
+		4AF961091B1CEE30003D9E44 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 4AF961081B1CEE30003D9E44 /* Images */; };
+		4AF9610B1B1D4F8B003D9E44 /* Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9610A1B1D4F8B003D9E44 /* Star.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,8 +33,7 @@
 		4AF960DB1B1CE335003D9E44 /* Galaxy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Galaxy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF960DF1B1CE335003D9E44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AF960E01B1CE335003D9E44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4AF960E21B1CE335003D9E44 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		4AF960E41B1CE335003D9E44 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		4AF960E41B1CE335003D9E44 /* GalaxyScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaxyScene.swift; sourceTree = "<group>"; };
 		4AF960E61B1CE335003D9E44 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4AF960E91B1CE335003D9E44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AF960EB1B1CE335003D9E44 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -40,6 +41,9 @@
 		4AF960F41B1CE335003D9E44 /* GalaxyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GalaxyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF960F91B1CE335003D9E44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AF960FA1B1CE335003D9E44 /* GalaxyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalaxyTests.swift; sourceTree = "<group>"; };
+		4AF961061B1CED8B003D9E44 /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		4AF961081B1CEE30003D9E44 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		4AF9610A1B1D4F8B003D9E44 /* Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Star.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,14 +85,16 @@
 		4AF960DD1B1CE335003D9E44 /* Galaxy */ = {
 			isa = PBXGroup;
 			children = (
+				4AF961081B1CEE30003D9E44 /* Images */,
 				4AF960E01B1CE335003D9E44 /* AppDelegate.swift */,
-				4AF960E21B1CE335003D9E44 /* GameScene.sks */,
-				4AF960E41B1CE335003D9E44 /* GameScene.swift */,
+				4AF960E41B1CE335003D9E44 /* GalaxyScene.swift */,
 				4AF960E61B1CE335003D9E44 /* GameViewController.swift */,
 				4AF960E81B1CE335003D9E44 /* Main.storyboard */,
 				4AF960EB1B1CE335003D9E44 /* Images.xcassets */,
 				4AF960ED1B1CE335003D9E44 /* LaunchScreen.xib */,
 				4AF960DE1B1CE335003D9E44 /* Supporting Files */,
+				4AF961061B1CED8B003D9E44 /* Hero.swift */,
+				4AF9610A1B1D4F8B003D9E44 /* Star.swift */,
 			);
 			path = Galaxy;
 			sourceTree = "<group>";
@@ -198,9 +204,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF961091B1CEE30003D9E44 /* Images in Resources */,
 				4AF960EF1B1CE335003D9E44 /* LaunchScreen.xib in Resources */,
 				4AF960EC1B1CE335003D9E44 /* Images.xcassets in Resources */,
-				4AF960E31B1CE335003D9E44 /* GameScene.sks in Resources */,
 				4AF960EA1B1CE335003D9E44 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,9 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AF960E51B1CE335003D9E44 /* GameScene.swift in Sources */,
+				4AF960E51B1CE335003D9E44 /* GalaxyScene.swift in Sources */,
 				4AF960E71B1CE335003D9E44 /* GameViewController.swift in Sources */,
 				4AF960E11B1CE335003D9E44 /* AppDelegate.swift in Sources */,
+				4AF9610B1B1D4F8B003D9E44 /* Star.swift in Sources */,
+				4AF961071B1CED8B003D9E44 /* Hero.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +425,7 @@
 				4AF961001B1CE335003D9E44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4AF961011B1CE335003D9E44 /* Build configuration list for PBXNativeTarget "GalaxyTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +434,7 @@
 				4AF961031B1CE335003D9E44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
