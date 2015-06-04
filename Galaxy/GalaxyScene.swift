@@ -26,11 +26,19 @@ class GalaxyScene: SKScene {
     var endTouchTime: NSTimeInterval!
     
     var coordinatesLabel: UILabel!
+    var maxSpeedLabel: UILabel!
+    var cruisingSpeedLabel: UILabel!
+    var resistanceLabel: UILabel!
+    
+    var toggleEnginesButton: UIButton!
+    var previousCruisingSpeed: CGFloat!
+    var enginesAreOn = true
     
     let rotateRight = SKAction.rotateToAngle(3.1415926 / 2, duration: 0.25)
     let rotateLeft = SKAction.rotateToAngle(-3.1415926 / 2, duration: 0.25)
     
     var updateTime = 60
+    var increaseCruisingSpeedTimer = 300
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -53,6 +61,115 @@ class GalaxyScene: SKScene {
         let coordinateY = String(format: "%5.2f", hero.worldY)
         coordinatesLabel.text = "(\(coordinateX), \(coordinateY))"
         view.addSubview(coordinatesLabel)
+        
+        toggleEnginesButton = UIButton(frame: CGRect(x: 0, y: 0, width: 88, height: 44))
+        //toggleEnginesButton.backgroundColor = UIColor.blackColor()
+        toggleEnginesButton.layer.borderWidth = 2.0
+        toggleEnginesButton.layer.cornerRadius = 5.0
+        toggleEnginesButton.layer.borderColor = UIColor.whiteColor().CGColor
+        toggleEnginesButton.setTitle("X", forState: .Normal)
+        toggleEnginesButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        toggleEnginesButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        toggleEnginesButton.addTarget(self, action: "toggleEnginesTapped", forControlEvents: .TouchUpInside)
+        
+        /////////////////////////// Temp Buttons For Testing! //////////////////////////////
+        let increaseMaxSpeedButton = UIButton(frame: CGRect(x: 0, y: 44, width: 44, height: 44))
+        //increaseMaxSpeedButton.backgroundColor = UIColor.blackColor()
+        increaseMaxSpeedButton.layer.borderWidth = 2.0
+        increaseMaxSpeedButton.layer.cornerRadius = 5.0
+        increaseMaxSpeedButton.layer.borderColor = UIColor.whiteColor().CGColor
+        increaseMaxSpeedButton.setTitle("M+", forState: .Normal)
+        increaseMaxSpeedButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        increaseMaxSpeedButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        increaseMaxSpeedButton.addTarget(self, action: "increaseMaxSpeedTapped", forControlEvents: .TouchUpInside)
+        let decreaseMaxSpeedButton = UIButton(frame: CGRect(x: 44, y: 44, width: 44, height: 44))
+        //decreaseMaxSpeedButton.backgroundColor = UIColor.blackColor()
+        decreaseMaxSpeedButton.layer.borderWidth = 2.0
+        decreaseMaxSpeedButton.layer.cornerRadius = 5.0
+        decreaseMaxSpeedButton.layer.borderColor = UIColor.whiteColor().CGColor
+        decreaseMaxSpeedButton.setTitle("M-", forState: .Normal)
+        decreaseMaxSpeedButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        decreaseMaxSpeedButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        decreaseMaxSpeedButton.addTarget(self, action: "decreaseMaxSpeedTapped", forControlEvents: .TouchUpInside)
+        
+        let increaseCruisingSpeedButton = UIButton(frame: CGRect(x: 0, y: 132, width: 44, height: 44))
+        //increaseCruisingSpeedButton.backgroundColor = UIColor.blackColor()
+        increaseCruisingSpeedButton.layer.borderWidth = 2.0
+        increaseCruisingSpeedButton.layer.cornerRadius = 5.0
+        increaseCruisingSpeedButton.layer.borderColor = UIColor.whiteColor().CGColor
+        increaseCruisingSpeedButton.setTitle("C+", forState: .Normal)
+        increaseCruisingSpeedButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        increaseCruisingSpeedButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        increaseCruisingSpeedButton.addTarget(self, action: "increaseCruisingSpeedTapped", forControlEvents: .TouchUpInside)
+        let decreaseCruisingSpeedButton = UIButton(frame: CGRect(x: 44, y: 132, width: 44, height: 44))
+        //decreaseCruisingSpeedButton.backgroundColor = UIColor.blackColor()
+        decreaseCruisingSpeedButton.layer.borderWidth = 2.0
+        decreaseCruisingSpeedButton.layer.cornerRadius = 5.0
+        decreaseCruisingSpeedButton.layer.borderColor = UIColor.whiteColor().CGColor
+        decreaseCruisingSpeedButton.setTitle("C-", forState: .Normal)
+        decreaseCruisingSpeedButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        decreaseCruisingSpeedButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        decreaseCruisingSpeedButton.addTarget(self, action: "decreaseCruisingSpeedTapped", forControlEvents: .TouchUpInside)
+        
+        let increaseResistanceButton = UIButton(frame: CGRect(x: 0, y: 220, width: 44, height: 44))
+        //increaseResistanceButton.backgroundColor = UIColor.blackColor()
+        increaseResistanceButton.layer.borderWidth = 2.0
+        increaseResistanceButton.layer.cornerRadius = 5.0
+        increaseResistanceButton.layer.borderColor = UIColor.whiteColor().CGColor
+        increaseResistanceButton.setTitle("R+", forState: .Normal)
+        increaseResistanceButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        increaseResistanceButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        increaseResistanceButton.addTarget(self, action: "increaseResistanceTapped", forControlEvents: .TouchUpInside)
+        let decreaseResistanceButton = UIButton(frame: CGRect(x: 44, y: 220, width: 44, height: 44))
+        //decreaseResistanceButton.backgroundColor = UIColor.blackColor()
+        decreaseResistanceButton.layer.borderWidth = 2.0
+        decreaseResistanceButton.layer.cornerRadius = 5.0
+        decreaseResistanceButton.layer.borderColor = UIColor.whiteColor().CGColor
+        decreaseResistanceButton.setTitle("R-", forState: .Normal)
+        decreaseResistanceButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        decreaseResistanceButton.titleLabel?.font = UIFont(name: "Copperplate", size: 24.0)
+        decreaseResistanceButton.addTarget(self, action: "decreaseResistanceTapped", forControlEvents: .TouchUpInside)
+        
+        maxSpeedLabel = UILabel(frame: CGRect(x: 0, y: 88, width: 88, height: 44))
+        maxSpeedLabel.text = "\(hero.maxSpeed)"
+        maxSpeedLabel.textColor = UIColor.whiteColor()
+        maxSpeedLabel.font = UIFont(name: "Copperplate", size: 24.0)
+        maxSpeedLabel.textAlignment = NSTextAlignment.Center
+        maxSpeedLabel.layer.borderWidth = 2.0
+        maxSpeedLabel.layer.cornerRadius = 5.0
+        maxSpeedLabel.layer.borderColor = UIColor.whiteColor().CGColor
+        cruisingSpeedLabel = UILabel(frame: CGRect(x: 0, y: 176, width: 88, height: 44))
+        cruisingSpeedLabel.text = "\(hero.cruisingSpeed)"
+        cruisingSpeedLabel.textColor = UIColor.whiteColor()
+        cruisingSpeedLabel.font = UIFont(name: "Copperplate", size: 24.0)
+        cruisingSpeedLabel.textAlignment = NSTextAlignment.Center
+        cruisingSpeedLabel.layer.borderWidth = 2.0
+        cruisingSpeedLabel.layer.cornerRadius = 5.0
+        cruisingSpeedLabel.layer.borderColor = UIColor.whiteColor().CGColor
+        resistanceLabel = UILabel(frame: CGRect(x: 0, y: 264, width: 88, height: 44))
+        resistanceLabel.text = "\(hero.resistance)"
+        resistanceLabel.textColor = UIColor.whiteColor()
+        resistanceLabel.font = UIFont(name: "Copperplate", size: 24.0)
+        resistanceLabel.textAlignment = NSTextAlignment.Center
+        resistanceLabel.layer.borderWidth = 2.0
+        resistanceLabel.layer.cornerRadius = 5.0
+        resistanceLabel.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        view.addSubview(increaseMaxSpeedButton)
+        view.addSubview(decreaseMaxSpeedButton)
+        view.addSubview(increaseCruisingSpeedButton)
+        view.addSubview(decreaseCruisingSpeedButton)
+        view.addSubview(increaseResistanceButton)
+        view.addSubview(decreaseResistanceButton)
+        
+        view.addSubview(maxSpeedLabel)
+        view.addSubview(cruisingSpeedLabel)
+        view.addSubview(resistanceLabel)
+        
+        /////////////////////////// Temp Buttons For Testing! //////////////////////////////
+        
+        view.addSubview(toggleEnginesButton)
+        
         
         println("\(hero.position)")
         addChild(hero)
@@ -112,7 +229,7 @@ class GalaxyScene: SKScene {
         let rotate = SKAction.rotateToAngle(angle, duration: 0.5)
         hero.runAction(rotate)
         hero.angle = CGFloat(angle)
-        hero.velocity = 50 - CGFloat(endTouchTime - beginTouchTime)
+        hero.velocity = hero.maxSpeed - CGFloat(endTouchTime - beginTouchTime) * 10
 
     }
    
@@ -154,10 +271,11 @@ class GalaxyScene: SKScene {
         addChild(hero)
         adjustHeroPosition()
         
-        if hero.velocity <= 1.0 {
-            hero.velocity = 1.0
+        if hero.velocity <= hero.cruisingSpeed {
+            hero.velocity = hero.cruisingSpeed
         } else {
-            hero.velocity -= 0.5
+            //Resitance could be a property of the current chunk
+            hero.velocity -= hero.resistance
         }
        
         
@@ -171,6 +289,14 @@ class GalaxyScene: SKScene {
             coordinatesLabel.text = "(\(coordinateX), \(coordinateY))"
             println("Chunk x: \(hero.chunk.0), Chunk y: \(hero.chunk.1)")
         }
+        /*
+        increaseCruisingSpeedTimer--
+        if increaseCruisingSpeedTimer == 0 {
+            increaseCruisingSpeedTimer = 300
+            hero.increaseCruisingSpeed(1)
+            println("Cruising speed inc!")
+        }
+        */
     }
     
 
@@ -216,9 +342,13 @@ class GalaxyScene: SKScene {
             srand(UInt32(seed))
             let numPlanets = Int(rand() % 5) + 1
             for var i = 0; i < numPlanets; i++ {
+                //let planet2 = Planet2(circleOfRadius: 20)
+                //planet2.fillColor = UIColor.blueColor()
                 let planet = Planet(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
                 let xPos = originX + (rand() % 1000)
                 let yPos = originY + (rand() % 1000)
+                //planet2.worldX = CGFloat(xPos)
+                //planet2.worldY = CGFloat(yPos)
                 planet.worldX = CGFloat(xPos)
                 planet.worldY = CGFloat(yPos)
                 newPlanetArray.addObject(planet)
@@ -266,7 +396,56 @@ class GalaxyScene: SKScene {
         hero.worldY += yAddition
     }
     
-
+    //PDAlert: Probably a safer way to store this so its not lost
+    func toggleEnginesTapped() {
+        if enginesAreOn {
+            enginesAreOn = false
+            previousCruisingSpeed = hero.cruisingSpeed
+            hero.cruisingSpeed = 0
+            toggleEnginesButton.setTitle(">", forState: .Normal)
+            
+        } else {
+            enginesAreOn = true
+            hero.cruisingSpeed = previousCruisingSpeed
+            previousCruisingSpeed = 0
+            toggleEnginesButton.setTitle("X", forState: .Normal)
+            
+        }
+    }
+    
+    func increaseMaxSpeedTapped() {
+        hero.maxSpeed += 1
+        maxSpeedLabel.text = "\(hero.maxSpeed)"
+    }
+    func decreaseMaxSpeedTapped() {
+        hero.maxSpeed -= 1
+        if hero.maxSpeed <= 2 {
+            hero.maxSpeed = 2
+        }
+        maxSpeedLabel.text = "\(hero.maxSpeed)"
+    }
+    func increaseCruisingSpeedTapped() {
+        hero.cruisingSpeed += 0.5
+        cruisingSpeedLabel.text = "\(hero.cruisingSpeed)"
+    }
+    func decreaseCruisingSpeedTapped() {
+        hero.cruisingSpeed -= 0.5
+        if hero.cruisingSpeed <= 0.5 {
+            hero.cruisingSpeed = 0.5
+        }
+        cruisingSpeedLabel.text = "\(hero.cruisingSpeed)"
+    }
+    func increaseResistanceTapped() {
+        hero.resistance += 0.1
+        resistanceLabel.text = "\(hero.resistance)"
+    }
+    func decreaseResistanceTapped() {
+        hero.resistance -= 0.1
+        if hero.resistance <= 0.1 {
+            hero.resistance = 0.1
+        }
+        resistanceLabel.text = "\(hero.resistance)"
+    }
     
     
     

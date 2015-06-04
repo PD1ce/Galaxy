@@ -20,6 +20,10 @@ class Hero: SKSpriteNode {
     var worldX = CGFloat(1)
     var worldY = CGFloat(1)
     
+    var maxSpeed = CGFloat(10)
+    var cruisingSpeed = CGFloat(0.5)
+    var resistance = CGFloat(0.1)
+    
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         chunk = (0,0)
         super.init(texture: texture, color: color, size: size)
@@ -29,4 +33,10 @@ class Hero: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    func increaseMaxSpeed(speed: CGFloat)       { maxSpeed += speed }
+    func increaseCruisingSpeed(speed: CGFloat)  { cruisingSpeed += speed }
+    func increaseResistance(speed: CGFloat)     { resistance += speed }
 }
+

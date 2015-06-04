@@ -42,3 +42,23 @@ class Planet: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class Planet2 : SKShapeNode {
+    var worldX: CGFloat!
+    var worldY: CGFloat!
+    
+    
+    init(circleOfRadius: CGFloat) {
+        super.init()
+        var path2 = CGPathCreateMutable()
+        CGPathMoveToPoint(path2, nil, 10, 10)
+        CGPathAddLineToPoint(path2, nil, 20, 10)
+        CGPathAddArc(path2, nil, 100, 100, circleOfRadius, CGFloat(-M_PI_2), CGFloat(M_PI_2 * 3), false)
+        CGPathCloseSubpath(path2)
+        path = path2
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
