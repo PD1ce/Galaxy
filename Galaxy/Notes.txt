@@ -1,0 +1,2 @@
+// Randomly generate the missions and planet
+Tuple 1, Tuple 2

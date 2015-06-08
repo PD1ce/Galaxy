@@ -12,10 +12,17 @@ import SpriteKit
 class Star: SKSpriteNode {
     var worldX: CGFloat!
     var worldY: CGFloat!
+    var id: Int!
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
+    
+    init(texture: SKTexture!, color: UIColor!, size: CGSize, id: Int) {
+        super.init(texture: texture, color: color, size: size)
+        self.id = id
+    }
+    
     
 //    init(color: UIColor!, size: CGSize, worldX: CGFloat!, worldY: CGFloat!) {
 //        self.worldX = worldX
@@ -32,14 +39,33 @@ class Star: SKSpriteNode {
 class Planet: SKSpriteNode {
     var worldX: CGFloat!
     var worldY: CGFloat!
+    var id: Int!
+    var hasMission = false
     
     override init(texture: SKTexture!, color: UIColor!, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
+    }
+    
+    init(texture: SKTexture!, color: UIColor!, size: CGSize, id: Int) {
+        //Has a mission!
+        if id == 2 {
+            hasMission = true
+            super.init(texture: texture, color: UIColor.blueColor(), size: size)
+            self.id = id
+        } else {
+            super.init(texture: texture, color: color, size: size)
+            self.id = id
+        }
+        
     }
 
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func displayInfo() {
+        println("Contact with planet!")
     }
 }
 

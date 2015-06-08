@@ -17,6 +17,9 @@
 		4AF961071B1CED8B003D9E44 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF961061B1CED8B003D9E44 /* Hero.swift */; };
 		4AF961091B1CEE30003D9E44 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 4AF961081B1CEE30003D9E44 /* Images */; };
 		4AF9610B1B1D4F8B003D9E44 /* Bodies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9610A1B1D4F8B003D9E44 /* Bodies.swift */; };
+		4AF9610D1B229AED003D9E44 /* Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4AF9610C1B229AED003D9E44 /* Notes.txt */; };
+		4AF9610F1B234271003D9E44 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9610E1B234271003D9E44 /* Mission.swift */; };
+		4AF961111B234343003D9E44 /* Deltas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF961101B234343003D9E44 /* Deltas.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		4AF961061B1CED8B003D9E44 /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		4AF961081B1CEE30003D9E44 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		4AF9610A1B1D4F8B003D9E44 /* Bodies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bodies.swift; sourceTree = "<group>"; };
+		4AF9610C1B229AED003D9E44 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
+		4AF9610E1B234271003D9E44 /* Mission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		4AF961101B234343003D9E44 /* Deltas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deltas.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,12 +94,15 @@
 				4AF961081B1CEE30003D9E44 /* Images */,
 				4AF960E01B1CE335003D9E44 /* AppDelegate.swift */,
 				4AF960E41B1CE335003D9E44 /* GalaxyScene.swift */,
+				4AF9610C1B229AED003D9E44 /* Notes.txt */,
 				4AF960E61B1CE335003D9E44 /* GameViewController.swift */,
 				4AF960E81B1CE335003D9E44 /* Main.storyboard */,
 				4AF960EB1B1CE335003D9E44 /* Images.xcassets */,
 				4AF960ED1B1CE335003D9E44 /* LaunchScreen.xib */,
 				4AF960DE1B1CE335003D9E44 /* Supporting Files */,
 				4AF961061B1CED8B003D9E44 /* Hero.swift */,
+				4AF9610E1B234271003D9E44 /* Mission.swift */,
+				4AF961101B234343003D9E44 /* Deltas.swift */,
 				4AF9610A1B1D4F8B003D9E44 /* Bodies.swift */,
 			);
 			path = Galaxy;
@@ -208,6 +217,7 @@
 				4AF960EF1B1CE335003D9E44 /* LaunchScreen.xib in Resources */,
 				4AF960EC1B1CE335003D9E44 /* Images.xcassets in Resources */,
 				4AF960EA1B1CE335003D9E44 /* Main.storyboard in Resources */,
+				4AF9610D1B229AED003D9E44 /* Notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +235,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF9610F1B234271003D9E44 /* Mission.swift in Sources */,
 				4AF960E51B1CE335003D9E44 /* GalaxyScene.swift in Sources */,
+				4AF961111B234343003D9E44 /* Deltas.swift in Sources */,
 				4AF960E71B1CE335003D9E44 /* GameViewController.swift in Sources */,
 				4AF960E11B1CE335003D9E44 /* AppDelegate.swift in Sources */,
 				4AF9610B1B1D4F8B003D9E44 /* Bodies.swift in Sources */,

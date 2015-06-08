@@ -40,6 +40,9 @@ class GalaxyScene: SKScene {
     var updateTime = 60
     var increaseCruisingSpeedTimer = 300
     
+    var middleOfScreen: CGPoint!
+    
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
 //        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
@@ -49,6 +52,7 @@ class GalaxyScene: SKScene {
 //        
 //        self.addChild(myLabel)
         
+        middleOfScreen = view.center
         
         backgroundColor = UIColor.blackColor()
         hero.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
@@ -240,12 +244,6 @@ class GalaxyScene: SKScene {
             child.removeFromParent()
         }
         
-        //stars.removeAllObjects()
-        //stars = getStarsForPosition(hero.worldX, worldY: hero.worldY)
-        //planets.removeAllObjects()
-        //planets = getPlanetsForPosition(hero.worldX, worldY: hero.worldY)
-        
-        
         ///////////////////////////////////////////////////////////////
         visibleChunks.removeAll(keepCapacity: true)
         
@@ -257,17 +255,33 @@ class GalaxyScene: SKScene {
         
         visibleChunks = getVisibleChunks(hero.chunk)
         for chunk in visibleChunks {
+            //generateObjectsForChunk(chunk)
             chunkStars = generateStarsForChunk(chunk)
             chunkPlanets = generatePlanetsForChunk(chunk)
             for star in chunkStars {
                 deriveScreenPositionStar(star as! Star)
+                
                 addChild(star as! Star)
             }
             for planet in chunkPlanets {
                 deriveScreenPositionPlanet(planet as! Planet)
                 addChild(planet as! Planet)
             }
+            
+            //The object is in the same chunk as the hero
+            if (chunk.0 == hero.chunk.0 && chunk.1 == hero.chunk.1) {
+                for planet in chunkPlanets {
+                    let collision = isInMiddleOfScreen(planet as! Planet)
+                    if collision {
+                        (planet as! Planet).displayInfo()
+                    }
+                }
+            }
         }
+        
+        //Find the planet or object that is touching the middle of the screen?
+        
+        
         addChild(hero)
         adjustHeroPosition()
         
@@ -289,18 +303,61 @@ class GalaxyScene: SKScene {
             coordinatesLabel.text = "(\(coordinateX), \(coordinateY))"
             println("Chunk x: \(hero.chunk.0), Chunk y: \(hero.chunk.1)")
         }
-        /*
-        increaseCruisingSpeedTimer--
-        if increaseCruisingSpeedTimer == 0 {
-            increaseCruisingSpeedTimer = 300
-            hero.increaseCruisingSpeed(1)
-            println("Cruising speed inc!")
-        }
-        */
     }
     
+    func getChunkSeedOne(chunkPart: Int32) -> Int64 {
+        
+        var seed: Int64 = Int64(chunkPart) * 3442925714
+        seed *= hero.playerID
+        
+        return seed
+    }
+    func getChunkSeedTwo(chunkPart: Int32) -> Int64 {
+        
+        var seed: Int64 = Int64(chunkPart) * 9872346242
+        seed *= hero.playerID
+        
+        return seed
+    }
+    
+    func isInMiddleOfScreen(node: SKSpriteNode) -> Bool {
+        let xPos = node.position.x
+        let yPos = node.position.y
+        let nodeLeftSide = xPos - node.frame.width / 2
+        let nodeRightSide = xPos + node.frame.width / 2
+        let nodeBottomSide = yPos - node.frame.height / 2
+        let nodeTopSide = yPos + node.frame.height / 2
+        
+        //The Node is in contact with the middle of screen
+        if (nodeLeftSide < middleOfScreen.x && nodeRightSide > middleOfScreen.x) && (nodeBottomSide < middleOfScreen.y && nodeTopSide > middleOfScreen.y) {
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    func generateObjectsForChunk(chunk: (Int32, Int32)) -> NSMutableArray {
+        let chunkObjectsArray = NSMutableArray()
+        let seedOne = getChunkSeedOne(chunk.0)
+        let seedTwo = getChunkSeedTwo(chunk.1)
+        //// 0...7 seedOne + 63...56 seedTwo
+        
+        //// 8...15 seedOne + 55...48 seedTwo
+        
+        //// 16...23 seedOne + 47...40 seedTwo
+        
+        //// 24...31 seedOne + 39...32 seedTwo
+        
+        //// DELTAS /////
+        
+        
+        
+        return chunkObjectsArray
+    }
 
     func generateStarsForChunk(chunk: (Int32, Int32)) -> NSMutableArray {
+        
         let newStarArray = NSMutableArray()
         let originX = chunk.0 * 1000
         let originY = chunk.1 * 1000
@@ -342,17 +399,26 @@ class GalaxyScene: SKScene {
             srand(UInt32(seed))
             let numPlanets = Int(rand() % 5) + 1
             for var i = 0; i < numPlanets; i++ {
-                //let planet2 = Planet2(circleOfRadius: 20)
-                //planet2.fillColor = UIColor.blueColor()
-                let planet = Planet(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
+                
+                let planet = Planet(texture: nil, color: UIColor.redColor(), size: CGSize(width: 20, height: 20), id: i)
+                //let planet = Planet(color: UIColor.redColor(), size: CGSize(width: 20, height: 20))
                 let xPos = originX + (rand() % 1000)
                 let yPos = originY + (rand() % 1000)
-                //planet2.worldX = CGFloat(xPos)
-                //planet2.worldY = CGFloat(yPos)
                 planet.worldX = CGFloat(xPos)
                 planet.worldY = CGFloat(yPos)
                 newPlanetArray.addObject(planet)
             }
+            
+            //Create planet based on seed
+            if (chunk.0 * chunk.1) % 100 == 0 {
+                let planet = Planet(color: UIColor.greenColor(), size: CGSize(width: 100, height: 100))
+                let xPos = originX + (rand() % 1000)
+                let yPos = originY + (rand() % 1000)
+                planet.worldX = CGFloat(xPos)
+                planet.worldY = CGFloat(yPos)
+                newPlanetArray.addObject(planet)
+            }
+            
         }
         
         
